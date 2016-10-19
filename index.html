@@ -2,27 +2,40 @@
 <html>
   <head>
     <style>
+	  .container {
+	    position:absolute;
+	    height:100%;
+		width:100%;
+		top:0px;
+		left:0px;
+		overflow:hidden;
+	  }
+	  .editor, .simulator {
+        position:absolute;
+		width:48%;
+        height:96%;
+		top:2%;
+		overflow:scroll;
+	  }
       .editor {
-        background:gray;
-        border-right: 3px solid black;
-        width:50%;
-        display:block;
-        min-height:100%;
+        background:lightgray;
+        border: 3px solid gray;
+		left:1%;
       }
       .simulator {
-        width:100%;
-        background:black;
-        display:block;
-        min-height:100%;
+        border: 3px solid black;
+		left:51%;
       }
     </style>
   </head>
   <body>
-    <div id='editor' class='editor'>
+    <div id='container' class='container'>
+      <div id='editor' class='editor'>
       
-    </div>
-    <div id='simulator' class='simulator'>
+      </div>
+      <div id='simulator' class='simulator'>
       
+      </div>
     </div>
   </body>
 </html>
