@@ -28,14 +28,29 @@
       }
     </style>
   </head>
-  <body>
+  <body onload="loadCode()">
     <div id='container' class='container'>
       <div id='editor' class='editor'>
-      
-      </div>
+	  </div>
       <div id='simulator' class='simulator'>
-      
+		<h1> Example Heading </h1>
+		<div>
+		  <p> This is an example html paragraph </p>
+		  <p> paragraph 2222     2</p>
+		</div>
       </div>
     </div>
+	<script>
+		var simulator = document.getElementById("simulator");
+		var editor = document.getElementById("editor");
+		
+		function loadCode() {
+			var str1 = simulator.innerHTML;
+			str1=str1.replace(/</g, "&lt;");
+			str1=str1.replace(/>/g, "&gt;");
+			str1=str1.replace(/\n/g, "<br>");
+			editor.innerHTML+=str1;
+		}
+	</script>
   </body>
 </html>
