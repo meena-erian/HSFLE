@@ -36,7 +36,7 @@
   <body onload="loadCode()">
     <div id='HSFLEv0-container' class='HSFLEv0-container'>
       <div id='HSFLEv0-editor' class='HSFLEv0-editor'>
-	  <textarea class="HSFLEv0-editor-textarea" id="HSFLEv0-editor-textarea" wrap="off" onkeypress="setTimeout(loadPage,50)"></textarea>
+	  <textarea class="HSFLEv0-editor-textarea" id="HSFLEv0-editor-textarea" wrap="off"></textarea>
 	  </div>
       <div id='HSFLEv0-simulator' class='HSFLEv0-simulator'>
 		<h1> Example Heading </h1>
@@ -55,7 +55,7 @@
 			var s = simulator.innerHTML;
 			s=s.replace(/\t/g, "");
 			textareaContent = editorTextarea.innerHTML = s;
-			HSFLEv0Loop = setIntervals(loadPage, 100 );
+			HSFLEv0Loop = setInterval(loadPage, 100 );
 		}
 		function loadPage() {
 			if(document.activeElement===editorTextarea) {
