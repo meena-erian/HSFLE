@@ -2,7 +2,7 @@
 <html>
   <head>
     <style>
-	  .container {
+	  .HSFLEv0-container {
 	    position:absolute;
 	    height:100%;
 		width:100%;
@@ -10,23 +10,23 @@
 		left:0px;
 		overflow:hidden;
 	  }
-	  .editor, .simulator {
+	  .HSFLEv0-editor, .HSFLEv0-simulator {
         position:absolute;
 		width:48%;
         height:96%;
 		top:2%;
 		overflow:scroll;
 	  }
-      .editor {
+      .HSFLEv0-editor {
         background:lightgray;
         border: 3px solid gray;
 		left:1%;
       }
-      .simulator {
+      .HSFLEv0-simulator {
         border: 3px solid black;
 		left:51%;
       }
-	  .editor-textarea {
+	  .HSFLEv0-editor-textarea {
 		background:lightgray;
 		width:98%;
 		height:98%;
@@ -34,29 +34,35 @@
     </style>
   </head>
   <body onload="loadCode()">
-    <div id='container' class='container'>
-      <div id='editor' class='editor'>
-	  <textarea class="editor-textarea" id="editor-textarea" wrap="off" onkeypress="setTimeout(loadPage,50)"></textarea>
+    <div id='HSFLEv0-container' class='HSFLEv0-container'>
+      <div id='HSFLEv0-editor' class='HSFLEv0-editor'>
+	  <textarea class="HSFLEv0-editor-textarea" id="HSFLEv0-editor-textarea" wrap="off" onkeypress="setTimeout(loadPage,50)"></textarea>
 	  </div>
-      <div id='simulator' class='simulator'>
+      <div id='HSFLEv0-simulator' class='HSFLEv0-simulator'>
 		<h1> Example Heading </h1>
 		<div>
 			<p> This is an example html paragraph </p>
-			<p> paragraph 2222    & 2</p>
 		</div>
       </div>
     </div>
 	<script>
-		var simulator = document.getElementById("simulator");
+		var simulator = document.getElementById("HSFLEv0-simulator");
 		//var editor = document.getElementById("editor");
-		var editorTextarea = document.getElementById("editor-textarea");
+		var editorTextarea = document.getElementById("HSFLEv0-editor-textarea");
+		var textareaContent;
+		var HSFLEv0Loop;
 		function loadCode() {
-			var str1 = simulator.innerHTML;
-			str1=str1.replace(/\t/g, "");
-			editorTextarea.innerHTML+=str1;
+			var s = simulator.innerHTML;
+			s=s.replace(/\t/g, "");
+			textareaContent = editorTextarea.innerHTML = s;
+			HSFLEv0Loop = setIntervals(loadPage, 100 );
 		}
 		function loadPage() {
-			simulator.innerHTML = editorTextarea.value;
+			if(document.activeElement===editorTextarea) {
+				if(editorTextarea.value != textareaContent) {
+					textareaContent = simulator.innerHTML = editorTextarea.value;
+				}
+			}
 		}
 	</script>
   </body>
