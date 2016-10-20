@@ -1,52 +1,21 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <style>
-	  .container {
-	    position:absolute;
-	    height:100%;
-		width:100%;
-		top:0px;
-		left:0px;
-		overflow:hidden;
-	  }
-	  .editor, .simulator {
-        position:absolute;
-		width:48%;
-        height:96%;
-		top:2%;
-		overflow:scroll;
-	  }
-      .editor {
-        background:lightgray;
-        border: 3px solid gray;
-		left:1%;
-      }
-      .simulator {
-        border: 3px solid black;
-		left:51%;
-      }
-	  .editor-textarea {
-		background:lightgray;
-		width:98%;
-		height:98%;
-	  }
-    </style>
   </head>
   <body onload="loadCode()">
-    <div id='container' class='container'>
-      <div id='editor' class='editor'>
-	  <textarea class="editor-textarea" id="editor-textarea" wrap="off" onkeypress="setTimeout(loadPage,50)"></textarea>
+    <div id='container'  style="height:100%;width:100%;overflow:hidden;">
+      <div id='editor'  style="background:lightgray;border: 3px solid gray;left:1%;position:absolute;width:48%;height:96%;top:2%;overflow:scroll;">
+	  <textarea class="editor-textarea" id="editor-textarea" wrap="off" onkeypress="setTimeout(loadPage,50)" style="background:lightgray;width:98%;height:98%;"></textarea>
 	  </div>
-      <div id='simulator' class='simulator'>
-		<h1> Example Heading </h1>
+      <div id='simulator' style="border:3px solid black;left:51%;position:absolute;width:48%;height:96%;top:2%;overflow:scroll;">
+		<h1 style="text-align:center"> Html Single-File Editor </h1>
 		<div>
-			<p> This is an example html paragraph </p>
-			<p> paragraph 2222    & 2</p>
+			<p> This version of HSFE is designed as a simple, portable, lightweighted html debuger. You can load it from any browser running on any platform. Type in the code on the left and see live results on the right.</p>
+			<p> Note: you could also copy the container element from the document and embed it in your website (all style-rules are defined inline and the java script is at the end of the container) </p>
+			<div style="text-align:center;"><button>Copy HSFE element to clipboard</button></div>
 		</div>
       </div>
-    </div>
-	<script>
+	  	<script>
 		var simulator = document.getElementById("simulator");
 		//var editor = document.getElementById("editor");
 		var editorTextarea = document.getElementById("editor-textarea");
@@ -56,8 +25,9 @@
 			editorTextarea.innerHTML+=str1;
 		}
 		function loadPage() {
-			simulator.innerHTML = editorTextarea.value;
+			if(document.activeElement===editorTextarea)simulator.innerHTML = editorTextarea.value;
 		}
-	</script>
+	    </script>
+    </div>
   </body>
 </html>
