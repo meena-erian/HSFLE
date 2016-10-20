@@ -26,31 +26,37 @@
         border: 3px solid black;
 		left:51%;
       }
+	  .editor-textarea {
+		background:lightgray;
+		width:98%;
+		height:98%;
+	  }
     </style>
   </head>
   <body onload="loadCode()">
     <div id='container' class='container'>
       <div id='editor' class='editor'>
+	  <textarea class="editor-textarea" id="editor-textarea" wrap="off" onkeypress="setTimeout(loadPage,50)"></textarea>
 	  </div>
       <div id='simulator' class='simulator'>
 		<h1> Example Heading </h1>
 		<div>
-		  <p> This is an example html paragraph </p>
-		  <p> paragraph 2222     2</p>
+			<p> This is an example html paragraph </p>
+			<p> paragraph 2222    & 2</p>
 		</div>
       </div>
     </div>
 	<script>
 		var simulator = document.getElementById("simulator");
-		var editor = document.getElementById("editor");
-		
+		//var editor = document.getElementById("editor");
+		var editorTextarea = document.getElementById("editor-textarea");
 		function loadCode() {
 			var str1 = simulator.innerHTML;
-			str1=str1.replace(/</g, "&lt;");
-			str1=str1.replace(/>/g, "&gt;");
-			str1=str1.replace(/\n/g, "<br>");
-			str1=str1.replace(/ /g, "&nbsp;");
-			editor.innerHTML+=str1;
+			str1=str1.replace(/\t/g, "");
+			editorTextarea.innerHTML+=str1;
+		}
+		function loadPage() {
+			simulator.innerHTML = editorTextarea.value;
 		}
 	</script>
   </body>
