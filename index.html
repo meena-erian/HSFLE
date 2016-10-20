@@ -49,6 +49,7 @@
 			str1=str1.replace(/</g, "&lt;");
 			str1=str1.replace(/>/g, "&gt;");
 			str1=str1.replace(/\n/g, "<br>");
+			str1=str1.replace(/ /g, "&nbsp;");
 			editor.innerHTML+=str1;
 		}
 	</script>
