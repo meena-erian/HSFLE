@@ -2,7 +2,7 @@
 <html>
   <head>
     <style>
-	  .HSFLEv0-container {
+	  .HSFLEv2-container {
 	    position:absolute;
 	    height:100%;
 		width:100%;
@@ -10,59 +10,39 @@
 		left:0px;
 		overflow:hidden;
 	  }
-	  .HSFLEv0-editor, .HSFLEv0-simulator {
+	  .HSFLEv2-editor, .HSFLEv2-simulator {
         position:absolute;
 		width:48%;
         height:96%;
 		top:2%;
 		overflow:scroll;
 	  }
-      .HSFLEv0-editor {
+      .HSFLEv2-editor {
         background:lightgray;
         border: 3px solid gray;
 		left:1%;
       }
-      .HSFLEv0-simulator {
+      .HSFLEv2-simulator {
         border: 3px solid black;
 		left:51%;
       }
-	  .HSFLEv0-editor-textarea {
-		background:lightgray;
-		width:98%;
-		height:98%;
-	  }
     </style>
   </head>
-  <body onload="loadCode()">
-    <div id='HSFLEv0-container' class='HSFLEv0-container'>
-      <div id='HSFLEv0-editor' class='HSFLEv0-editor'>
-	  <textarea class="HSFLEv0-editor-textarea" id="HSFLEv0-editor-textarea" wrap="off"></textarea>
+  <body onload="runInterpreter()">
+    <div id='HSFLEv2-container' class='HSFLEv2-container'>
+      <div id='HSFLEv2-editor' class='HSFLEv2-editor'>
 	  </div>
-      <div id='HSFLEv0-simulator' class='HSFLEv0-simulator'>
-		<h1> Example Heading </h1>
-		<div>
-			<p> This is an example html paragraph </p>
-		</div>
+      <div id='HSFLEv2-simulator' class='HSFLEv2-simulator'>
       </div>
     </div>
 	<script>
-		var simulator = document.getElementById("HSFLEv0-simulator");
-		//var editor = document.getElementById("editor");
-		var editorTextarea = document.getElementById("HSFLEv0-editor-textarea");
-		var textareaContent;
-		var HSFLEv0Loop;
-		function loadCode() {
-			var s = simulator.innerHTML;
-			s=s.replace(/\t/g, "");
-			textareaContent = editorTextarea.innerHTML = s;
-			HSFLEv0Loop = setInterval(loadPage, 100 );
+		var simulator = document.getElementById("HSFLEv2-simulator");
+		var editor = document.getElementById("editor");
+		var HSFLEv2Loop;
+		function runInterpreter() {
+			HSFLEv2Loop = setInterval(Interpreter, 100 );
 		}
-		function loadPage() {
-			if(document.activeElement===editorTextarea) {
-				if(editorTextarea.value != textareaContent) {
-					textareaContent = simulator.innerHTML = editorTextarea.value;
-				}
-			}
+		function Interpreter() {
 		}
 	</script>
   </body>
