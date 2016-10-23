@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <style>
+	  .HSFLEv01-container {
+	    position:absolute;
+	    height:100%;
+		width:100%;
+		top:0px;
+		left:0px;
+		overflow:hidden;
+	  }
+	  .HSFLEv01-editor, .HSFLEv01-simulator {
+        position:absolute;
+		width:48%;
+        height:96%;
+		top:2%;
+		overflow:scroll;
+	  }
+      .HSFLEv01-editor {
+        background:lightgray;
+        border: 3px solid gray;
+		left:1%;
+      }
+      .HSFLEv01-simulator {
+        border: 3px solid black;
+		left:51%;
+      }
+	  .HSFLEv01-editor-textarea {
+		background:lightgray;
+		width:98%;
+		height:98%;
+	  }
+    </style>
+  </head>
+  <body onload="runHSFLEv01Interpreter()">
+    <div id='HSFLEv01-container' class='HSFLEv01-container'>
+      <div id='HSFLEv01-editor' class='HSFLEv01-editor'>
+	  <textarea class="HSFLEv01-editor-textarea" id="HSFLEv01-editor-textarea" wrap="off" ></textarea>
+	  </div>
+      <div id='HSFLEv01-simulator' class='HSFLEv01-simulator'>
+      </div>
+    </div>
+	<script>
+		var simulator = document.getElementById("HSFLEv01-simulator");
+		var editorTextarea = document.getElementById("HSFLEv01-editor-textarea");
+		var textareaContent;
+		var HSFLEv01Loop;
+		function runHSFLEv01Interpreter() {
+			HSFLEv01Loop = setInterval(HSFLEv01Interpreter, 100 );
+		}
+		function HSFLEv01Interpreter() {
+			if(document.activeElement===editorTextarea) {//if the code textarea is focused
+				if(editorTextarea.value != textareaContent) {//if the code has been changed
+					editorTextarea.value = autoComplete(editorTextarea.value)
+					textareaContent = simulator.innerHTML = editorTextarea.value;
+				}
+			}
+		}
+		function autoComplete(codeIn) {
+			var elementAddress = [];
+			var newCode = "";
+			var tagStartIndex=-1; //pointer to the "<" character in a tag
+			var tagEndIndex=-1; //pointer to the ">" character in a tag
+			for(;;) {
+				if(-1 != (tagStartIndex = codeIn.indexOf("<", tagEndIndex+1))) { //if the next tag exists
+					var textNode = codeIn.slice(tagEndIndex+1, tagStartIndex);  //extract the text node behind it
+					var indent = textNode.lastIndexOf("\n")+1;
+					if(!indent) newCode += textNode; //add the text node unchanged if it doesn't include any "\n"
+					else newCode += textNode.slice(0, textNode.lastIndexOf("\n")+1); //remove all characters after the last "\n"
+					if(codeIn[tagStartIndex+1] == "/") {//if it is a closing tag
+						tagEndIndex = codeIn.indexOf(">", tagStartIndex+2);
+						var tagName = codeIn.slice(tagStartIndex+2, tagEndIndex);
+						tagName = tagName.replace(/ /g, "");
+						if(indent)newCode += "  ".repeat(Math.max(0,elementAddress.length-1));//adjust indentation 
+						if(elementAddress[elementAddress.length-1]==tagName) { //if the name of this closing tag is the same as the last one on stack
+							newCode += "</"+tagName+">"; //save it
+							elementAddress.pop(); //pop from the stack
+						}
+						else {
+							newCode += "</"+tagName+">"; //save it
+							elementAddress.pop(); //pop from the stack
+							//process error instructions
+						}
+					}
+					else if (codeIn[tagStartIndex+1] == "!") { //!DOCTYPE or comment
+						if(indent)newCode += "  ".repeat(elementAddress.length);//adjust indentation 
+						if(codeIn[tagStartIndex+2]=="-" && codeIn[tagStartIndex+3]=="-") {//comment
+							tagEndIndex = codeIn.indexOf("--"+">", tagStartIndex+4)+2;
+							newCode += codeIn.slice(tagStartIndex, tagEndIndex+1);
+						}
+						else {
+							tagEndIndex = codeIn.indexOf(">", tagStartIndex+2);
+							newCode += codeIn.slice(tagStartIndex, tagEndIndex+1);
+						}
+					}
+					else if ((codeIn[tagStartIndex+1]>="a" && codeIn[tagStartIndex+1]<="z")||(codeIn[tagStartIndex+1]>="A" && codeIn[tagStartIndex+1]<="Z")) {//opening tag
+						newCode += "  ".repeat(elementAddress.length)//adjust indentation 
+						var tagName = "";
+						var jsScope = false;
+						var terminatingQuotes = "";
+						var tagNameExtracted = false;
+						for(var i = tagStartIndex+1; i<codeIn.length; i++) { //extract tagName and tagEndIndex
+							if(!tagNameExtracted) {
+								if( (codeIn[i]>="a"&&codeIn[i]<="z") || (codeIn[i]>="A"&&codeIn[i]<="Z") ) {
+									tagName += codeIn[i];
+								}
+								else if (codeIn[i]==" " || codeIn[i]=="\n") tagNameExtracted = true;
+								else if (codeIn[i]==">") {
+									tagNameExtracted = true;
+									tagEndIndex = i;
+									break;
+								}
+							}
+							else {
+								if(jsScope) {
+									if(codeIn[i]==terminatingQuotes) {
+										jsScope = false;
+									}
+								}
+								else {
+									if(codeIn[i]=='"' || codeIn[i]=="'") {
+										jsScope = true;
+										terminatingQuotes = codeIn[i];
+									}
+									else if(codeIn[i]==">") {
+										tagEndIndex = i;
+										break;
+									}
+								}
+							}
+						}
+						elementAddress.push(tagName);
+						newCode += codeIn.slice(tagStartIndex, tagEndIndex+1);
+					}
+					else {//its just a floating "<"
+						tagEndIndex = tagStartIndex;
+						if(indent)newCode += "  ".repeat(elementAddress.length); //adjust indentation 
+						newCode += "<>";
+					}
+				}
+				else {
+					newCode += codeIn.slice(tagEndIndex+1);//add the last text node
+					break;
+				}
+			}
+			return newCode;
+		}
+	</script>
+  </body>
+</html>
