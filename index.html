@@ -36,21 +36,24 @@
   <body onload="loadCode()">
     <div id='HSFLEv0-container' class='HSFLEv0-container'>
       <div id='HSFLEv0-editor' class='HSFLEv0-editor'>
-	  <input type="checkbox" id="bootstrap-checkbox" onchange="bootstrapRefresh()">
+	  <input type="checkbox" checked="true" id="bootstrap-checkbox" onchange="bootstrapRefresh()">
 	  <label for="bootstrap-checkbox"> Include Bootstrap </label>
 	  <textarea class="HSFLEv0-editor-textarea" id="HSFLEv0-editor-textarea" wrap="off"></textarea>
 	  </div>
       <div id='HSFLEv0-simulator' class='HSFLEv0-simulator'>
-		<h1> Example Heading </h1>
-		<div>
-			<p> This is an example html paragraph </p>
-		</div>
+        <nav class="navbar navbar-default">
+          <ul class="nav navbar-nav">
+            <li class="active"><a>Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </nav>
       </div>
     </div>
-	<link id="bootstrap-css-link" rel="stylesheet">
-	<link id="bootstrap-theme-link" rel="stylesheet">
-	<script id="jquery-script"></script>
-        <script id="bootstrap-js-script"></script>
+	<link id="bootstrap-css-link" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link id="bootstrap-theme-link" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+	<script id="jquery-script" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script id="bootstrap-js-script" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<script>
 		
 		var simulator = document.getElementById("HSFLEv0-simulator");
@@ -78,10 +81,10 @@
 			var jQueryScript = document.getElementById("jquery-script");
 			var bootsrtapJsScript = document.getElementById("bootstrap-js-script");
 			if(bootstrapCheckbox.checked==true) {
-				bootstrapCssLink.href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css";
-				bootstrapThemeLink.href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.css";
+				bootstrapCssLink.href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css";
+				bootstrapThemeLink.href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css";
 				jQueryScript.src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js";
-				bootsrtapJsScript.src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js";
+				bootsrtapJsScript.src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js";
 			}
 			else {
 				bootstrapCssLink.href="";
