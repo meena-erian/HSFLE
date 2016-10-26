@@ -36,6 +36,8 @@
   <body onload="loadCode()">
     <div id='HSFLEv0-container' class='HSFLEv0-container'>
       <div id='HSFLEv0-editor' class='HSFLEv0-editor'>
+	  <input type="checkbox" id="bootstrap-checkbox" onchange="bootstrapRefresh()">
+	  <label for="bootstrap-checkbox"> Include Bootstrap </label>
 	  <textarea class="HSFLEv0-editor-textarea" id="HSFLEv0-editor-textarea" wrap="off"></textarea>
 	  </div>
       <div id='HSFLEv0-simulator' class='HSFLEv0-simulator'>
@@ -45,7 +47,9 @@
 		</div>
       </div>
     </div>
+	<link id="bootstrap-link" rel="stylesheet">
 	<script>
+		
 		var simulator = document.getElementById("HSFLEv0-simulator");
 		//var editor = document.getElementById("editor");
 		var editorTextarea = document.getElementById("HSFLEv0-editor-textarea");
@@ -62,6 +66,16 @@
 				if(editorTextarea.value != textareaContent) {
 					textareaContent = simulator.innerHTML = editorTextarea.value;
 				}
+			}
+		}
+		function bootstrapRefresh() {
+			var bootstrapCheckbox = document.getElementById("bootstrap-checkbox");
+			var bootstrapLink = document.getElementById("bootstrap-link");
+			if(bootstrapCheckbox.checked==true) {
+				bootstrapLink.href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js";
+			}
+			else {
+				bootstrapLink.href="";
 			}
 		}
 	</script>
