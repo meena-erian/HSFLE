@@ -47,7 +47,10 @@
 		</div>
       </div>
     </div>
-	<link id="bootstrap-link" rel="stylesheet">
+	<link id="bootstrap-css-link" rel="stylesheet">
+	<link id="bootstrap-theme-link" rel="stylesheet">
+	<script id="jquery-script"></script>
+        <script id="bootstrap-js-script"></script>
 	<script>
 		
 		var simulator = document.getElementById("HSFLEv0-simulator");
@@ -70,12 +73,21 @@
 		}
 		function bootstrapRefresh() {
 			var bootstrapCheckbox = document.getElementById("bootstrap-checkbox");
-			var bootstrapLink = document.getElementById("bootstrap-link");
+			var bootstrapCssLink = document.getElementById("bootstrap-css-link");
+			var bootstrapThemeLink = document.getElementById("bootstrap-theme-link");
+			var jQueryScript = document.getElementById("jquery-script");
+			var bootsrtapJsScript = document.getElementById("bootstrap-js-script");
 			if(bootstrapCheckbox.checked==true) {
-				bootstrapLink.href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js";
+				bootstrapCssLink.href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css";
+				bootstrapThemeLink.href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.css";
+				jQueryScript.src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js";
+				bootsrtapJsScript.src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js";
 			}
 			else {
-				bootstrapLink.href="";
+				bootstrapCssLink.href="";
+				bootstrapThemeLink.href="";
+				jQueryScript.src="";
+				bootsrtapJsScript.src="";
 			}
 		}
 	</script>
